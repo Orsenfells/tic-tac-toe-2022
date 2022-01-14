@@ -1,0 +1,24 @@
+Rock Paper Scissors
+
+gameBoard module to contain the board and the board logic in the code
+    -hold the gameboard array
+    - function to update the gameBoard with inputed move
+    - if  cell is occupied do not update 
+displayController module to update the dom board to match the js board
+    - when render is called match the dom board to the gameboard
+player factory functions to create players
+    - player name and player move
+    - when a player clicks on the dom board update the corresponding cell in the gameboard module to the player
+    move
+game module to keep score and manage the flow of the game
+
+checkWinner
+    - in the game module
+    - has a array with all the possible win combos\
+    - receives the board from the gameBoard.getBoard() method
+    - When called does a forEach call on the winCombo array and check the corresponding cells for a win line
+        if each cell is not empty and match, then last move is the winner
+    return winner
+
+checkDraw
+    - if 9 moves
