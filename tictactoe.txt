@@ -21,4 +21,4 @@ checkWinner
     return winner
 
 checkDraw
-    - if 9 moves
+    - if 9 moves have been played and no winner is called then the game is a draw

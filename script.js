@@ -2,7 +2,7 @@ const gameBoard = (() => {
     let board = ['','','',
                  '','','',
                  '','','']
-
+    
     const getBoard = () => board
     const updateBoard = (index, move) => {
         board[index] = move
@@ -10,6 +10,7 @@ const gameBoard = (() => {
     const newBoard = () => board = ['','','',
                                     '','','',
                                     '','',''] 
+
     return {getBoard, updateBoard, newBoard}                 
 })()
 const displayController = (() => {
@@ -23,7 +24,11 @@ const displayController = (() => {
     return {render, alertWinner}
 })()
 const Player = (name, playerMove) => {
-    return {name, playerMove}
+    let player = {}
+    player.name = name;
+    const setName = (newName) => player.name = newName; 
+    const getName = () => player.name
+    return {setName, getName, playerMove}
 }
 const game = (() => {
     let domBoard = document.querySelectorAll('.container .grid-cell')
@@ -38,6 +43,7 @@ const game = (() => {
     }
     const _clickHandler = (index) => {
         if(_checkWinner()) {
+            
             return
         }
         gameBoard.updateBoard(index, turn)
@@ -57,9 +63,11 @@ const game = (() => {
         return win
     }
     const _newBoard = () => {
+        
         gameBoard.newBoard();
         displayController.render();
         moveCount = 0;
+        
     }
     const init = (playerOne, playerTwo) => {
         _updateTurn(playerOne, playerTwo)
@@ -70,14 +78,17 @@ const game = (() => {
             moveCount++;
             _clickHandler(index)
             if(_checkWinner()) {
-                let winner = (playerOne.playerMove === turn) ? playerOne.name : playerTwo.name
+                let winner = (playerOne.playerMove === turn) ? playerOne.getName() : playerTwo.getName()
                 displayController.alertWinner(winner)
+                turn = undefined;
+                _updateTurn(playerOne, playerTwo)
                 _newBoard()
                 return
             }
             if(moveCount >= 9) {
                 alert('its a draw');
                 _newBoard()
+                return
             }
             _updateTurn(playerOne, playerTwo)
             
