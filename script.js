@@ -15,13 +15,19 @@ const gameBoard = (() => {
 })()
 const displayController = (() => {
     let domBoard = document.querySelectorAll('.container .grid-cell')
+
     const render = () => {
         domBoard.forEach((cell, i) => cell.textContent = gameBoard.getBoard()[i])
+
+        
+    }
+    const setPlayerName = (button, newName) => {
+        button.textContent = newName
     }
     const alertWinner = (winner) => {
         alert(`${winner} is the Winner!`)
     }
-    return {render, alertWinner}
+    return {render, alertWinner, setPlayerName}
 })()
 const Player = (name, playerMove) => {
     let player = {}
@@ -31,7 +37,10 @@ const Player = (name, playerMove) => {
     return {setName, getName, playerMove}
 }
 const game = (() => {
-    let domBoard = document.querySelectorAll('.container .grid-cell')
+    let domBoard = document.querySelectorAll('.container .grid-cell');
+    let playerOneName = document.querySelector('#player-one-name')
+    let playerTwoName = document.querySelector('#player-two-name')
+
     let moveCount = 0
     let turn;
     const _updateTurn = (playerOne, playerTwo) => {
@@ -70,6 +79,14 @@ const game = (() => {
         
     }
     const init = (playerOne, playerTwo) => {
+        playerOne.setName(playerOneName.value)
+        playerTwo.setName(playerTwoName.value)
+        playerOneName.addEventListener('input', (e) => {
+            playerOne.setName(e.target.value)
+        })
+        playerTwoName.addEventListener('input', (e) => {
+            playerTwo.setName(e.target.value)
+        })
         _updateTurn(playerOne, playerTwo)
         domBoard.forEach((cell, index) => cell.addEventListener('click', () => {
             if(cell.textContent) {
@@ -98,6 +115,6 @@ const game = (() => {
     return {init}
 })()
 
-let jeff = Player('jeff', 'X')
-let kim = Player('Kim', 'O')
-game.init(jeff, kim)
+let playerOne = Player('PlayerOne', 'X')
+let playerTwo = Player('PlayerTwo', 'O')
+game.init(playerOne, playerTwo)
