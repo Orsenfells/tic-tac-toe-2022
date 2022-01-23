@@ -40,9 +40,12 @@ const game = (() => {
     let domBoard = document.querySelectorAll('.container .grid-cell');
     let playerOneName = document.querySelector('#player-one-name')
     let playerTwoName = document.querySelector('#player-two-name')
-
+    let newGameButton = document.querySelector('#new-game-button')
     let moveCount = 0
     let turn;
+    newGameButton.addEventListener('click', () => {
+        _newBoard()
+    })
     const _updateTurn = (playerOne, playerTwo) => {
         if(!turn) {
             turn = playerOne.playerMove;

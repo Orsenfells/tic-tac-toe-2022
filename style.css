@@ -10,7 +10,7 @@ html {
   justify-content: center;
   align-items: flex-start;
   gap: 10px;
-  margin-top: 90px;
+  margin-top: 32px;
 }
 .container {
     display: grid;
@@ -39,4 +39,9 @@ button input {
   width: 100px;
   border: black 2px solid;
   border-radius: 4px;
+}
+.new-game-button {
+  margin: 0px auto;
+  display: block;
+  margin-top: 32px;
 }
