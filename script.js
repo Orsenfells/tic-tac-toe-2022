@@ -15,7 +15,7 @@ const gameBoard = (() => {
 })()
 const displayController = (() => {
     let domBoard = document.querySelectorAll('.container .grid-cell')
-
+    let winnerText = document.querySelector('.winner-text')
     const render = () => {
         domBoard.forEach((cell, i) => cell.textContent = gameBoard.getBoard()[i])
 
@@ -24,10 +24,10 @@ const displayController = (() => {
     const setPlayerName = (button, newName) => {
         button.textContent = newName
     }
-    const alertWinner = (winner) => {
-        alert(`${winner} is the Winner!`)
-    }
-    return {render, alertWinner, setPlayerName}
+    const alertWinner = (winner) => winnerText.textContent = `${winner} is the Winner!`
+    const clearWinner = () =>  winnerText.textContent = ''
+    const alertDraw = () => winnerText.textContent = `It's a draw!`
+    return {render, alertWinner, setPlayerName, clearWinner, alertDraw}
 })()
 const Player = (name, playerMove) => {
     let player = {}
@@ -75,7 +75,7 @@ const game = (() => {
         return win
     }
     const _newBoard = () => {
-        
+        displayController.clearWinner()
         gameBoard.newBoard();
         displayController.render();
         moveCount = 0;
@@ -102,12 +102,10 @@ const game = (() => {
                 displayController.alertWinner(winner)
                 turn = undefined;
                 _updateTurn(playerOne, playerTwo)
-                _newBoard()
                 return
             }
             if(moveCount >= 9) {
-                alert('its a draw');
-                _newBoard()
+                displayController.alertDraw()
                 return
             }
             _updateTurn(playerOne, playerTwo)

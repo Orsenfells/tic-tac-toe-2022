@@ -45,3 +45,8 @@ button input {
   display: block;
   margin-top: 32px;
 }
+.winner-text {
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
